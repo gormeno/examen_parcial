@@ -52,3 +52,9 @@ def detalle_tarea(request,ind):
     return render(request,'gestion_tareas/detalle_tarea.html',{
         'tarea':tarea_editar
     })
+
+def editar_tarea(request,ind):
+    tarea_editar = tarea.objects.get(id=ind)
+    return render(request,'gestion_tareas/editar_tarea.html',{
+        'tarea':tarea_editar
+    })

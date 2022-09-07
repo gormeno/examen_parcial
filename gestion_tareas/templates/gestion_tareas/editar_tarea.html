@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Detalles de Tarea</title>
+        <title>Edición de Tarea</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
@@ -9,29 +9,33 @@
     </head>
     <body>
         <div class="container"></div>
-            <h3>Detalles de Tarea</h3>
+            <h3>Edición de Tarea</h3>
             <form method="post" action="{ url 'pichangasApp:nuevaPichanga'}">
-            <div class="form-group col-md-3">
-                    <label>Fecha</label>
-                    <input type="date" class="form-control">
+                <h3>Detalles de Tarea</h3>
+                <div class="form-group col-md-3">
+                    <label>Descripción</label>
+                    <input type="text" class="form-control" value="{{ tarea.descripcion }}">
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <label>Equipo local</label>
-                        <select class="form-select">
-                            
-                        </select>
-                    </div>
-                    <div class="col-md-4">
-                        <label>Equipo visitante</label>
-                    </div>
+                <div class="form-group col-md-3">
+                    <label>Fecha de creación</label>
+                    <input type="text" class="form-control" value="{{ tarea.fecha_cracion }}">
                 </div>
-                <div>
+                <div class="form-group col-md-3">
+                    <label>Fecha de entrega</label>
+                    <input type="text" class="form-control" value="{{ tarea.fecha_entrega}}">
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Responsable</label>
+                    <input type="text" class="form-control" value="{{ tarea.responsable }}">
+                </div>
+                <div class="form-group col-md-3">
+                    <label>Estado</label>
+                    <input type="text" class="form-control" value="{{ tarea.estado }}">
+                </div>
                     <button>
-                        <input class="btn btn-warning" href="{% url 'gestion_tareas:detalle_tarea' tarea.id %}">Finalizar</a>
-                    </button>
+                        <input type="submit" class="btn btn-succes">Grabar</button>
                     <button>
-                        
+                        <a class="btn btn-info" href="{% url 'gestion_tareas:dashboard'%}">Salir</a>
                     </button>
                 </div>
             </div>    
