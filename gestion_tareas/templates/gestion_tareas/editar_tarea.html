@@ -10,26 +10,31 @@
     <body>
         <div class="container"></div>
             <h3>Detalles de Tarea</h3>
+            <form method="post" action="{ url 'pichangasApp:nuevaPichanga'}">
             <div class="form-group col-md-3">
-                <label>Descripción</label>
-                <input type="text" class="form-control" value="{{ tarea.descripcion }}">
-            </div>
-            <div class="form-group col-md-3">
-                <label>Fecha de creación</label>
-                <input type="text" class="form-control" value="{{ tarea.fecha_cracion }}">
-            </div>
-            <div class="form-group col-md-3">
-                <label>Fecha de entrega</label>
-                <input type="text" class="form-control" value="{{ tarea.fecha_entrega}}">
-            </div>
-            <div class="form-group col-md-3">
-                <label>Responsable</label>
-                <input type="text" class="form-control" value="{{ tarea.responsable }}">
-            </div>
-            <div class="form-group col-md-3">
-                <label>Estado</label>
-                <input type="text" class="form-control" value="{{ tarea.estado }}">
-            </div>
-        </div>    
+                    <label>Fecha</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Equipo local</label>
+                        <select class="form-select">
+                            
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Equipo visitante</label>
+                    </div>
+                </div>
+                <div>
+                    <button>
+                        <input class="btn btn-warning" href="{% url 'gestion_tareas:detalle_tarea' tarea.id %}">Finalizar</a>
+                    </button>
+                    <button>
+                        
+                    </button>
+                </div>
+            </div>    
+            </form>    
     </body>
 </html>

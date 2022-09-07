@@ -6,5 +6,5 @@ app_name = 'gestion_tareas'
 urlpatterns = [
     path('ingresar',views.ingresar,name='ingresar'),
     path('dashboard',views.dashboard,name='dashboard'),
-    path('detalle_tarea',views.detalle_tarea,name='detalle_tarea')
+    path('detalle_tarea/<str:ind>',views.detalle_tarea,name='detalle_tarea')
 ]

@@ -4,7 +4,7 @@ import datetime
 
 # Create your models here.
 class usuarios_app(models.Model):
-    nombre = models.CharField(max_length=128,default='')
+    nombre_usuario = models.CharField(max_length=128,default='')
     apellido = models.CharField(max_length=128,default='')
     codigo = models.CharField(max_length=128,default='')
     contrasena = models.CharField(max_length=128,default='')
