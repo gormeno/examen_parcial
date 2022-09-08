@@ -10,19 +10,20 @@
     <body>
         <div class="container"></div>
             <h3>Edición de Tarea</h3>
-            <form method="post" action="{ url 'pichangasApp:nuevaPichanga'}">
+            <form method="post" >
+            {% csrf_token %}
                 <h3>Detalles de Tarea</h3>
                 <div class="form-group col-md-3">
                     <label>Descripción</label>
-                    <input type="text" class="form-control" value="{{ tarea.descripcion }}">
+                    <input type="text" name="descripcion" class="form-control" value="{{ tarea.descripcion }}">
                 </div>
                 <div class="form-group col-md-3">
                     <label>Fecha de creación</label>
-                    <input type="text" class="form-control" value="{{ tarea.fecha_cracion }}">
+                    <input type="text" name="fecha_creacion" class="form-control" value="{{ tarea.fecha_cracion }}">
                 </div>
                 <div class="form-group col-md-3">
                     <label>Fecha de entrega</label>
-                    <input type="text" class="form-control" value="{{ tarea.fecha_entrega}}">
+                    <input type="text" name="fecha_entrega" class="form-control" value="{{ tarea.fecha_entrega}}">
                 </div>
                 <div class="form-group col-md-3">
                     <label>Responsable</label>
@@ -32,11 +33,8 @@
                     <label>Estado</label>
                     <input type="text" class="form-control" value="{{ tarea.estado }}">
                 </div>
-                    <button>
-                        <input type="submit" class="btn btn-succes">Grabar</button>
-                    <button>
-                        <a class="btn btn-info" href="{% url 'gestion_tareas:dashboard'%}">Salir</a>
-                    </button>
+                    <button type="submit" class="btn btn-succes">Grabar</button>
+                    <a class="btn btn-info" href="{% url 'gestion_tareas:dashboard' %}">Salir</a>
                 </div>
             </div>    
             </form>    

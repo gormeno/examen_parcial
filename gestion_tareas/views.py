@@ -55,6 +55,15 @@ def detalle_tarea(request,ind):
 
 def editar_tarea(request,ind):
     tarea_editar = tarea.objects.get(id=ind)
+    if request.method == 'POST':
+        descripcion = request.POST.get('descripcion')
+        fecha_creacion = request.POST.get('fecha_creacion')
+        fecha_entrega = request.POST.get('fecha_entrega')
+        tarea_editar.descripcion = descripcion
+        tarea_editar.fecha_cracion = fecha_creacion
+        tarea_editar.fecha_entrega = fecha_entrega
+        tarea_editar.save()
+        return HttpResponseRedirect(reverse('gestion_tareas:dashboard'))
     return render(request,'gestion_tareas/editar_tarea.html',{
-        'tarea':tarea_editar
+        'tarea':tarea_editar 
     })
