@@ -12,25 +12,22 @@
     <body>
             <h1>Bienvenido a Gestión Tareas</h1>
             <form method="post" action="{% url 'gestion_tareas:ingresar' %}">
-            {% csrf_token %}
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" name="emailUsuario" id="emailUsuario" aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" name="passwordUsuario" id="passwordUsuario">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="text" class="form-control" name="emailUsuario" id="emailUsuario" aria-describedby="emailHelp">
+                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="passwordUsuario" id="passwordUsuario">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
             {% if mensaje_error %}
             <div style="text-align: center;">
                 <h6>{{ mensaje_error }}</h6>
             </div>
             {% endif %}
-            <h9>¿Perdiste la contraseña?</h9>
-            <br>
-            <h9>¿No tienes cuenta? Regístrate</h9>    
     </body>
 </html>

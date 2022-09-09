@@ -20,7 +20,7 @@
             </div>
             <div class="form-group col-md-3">
                 <label>Fecha de entrega</label>
-                <label type="text" class="form-control">{{ tarea.fecha_entrega}}"</label>
+                <label type="text" class="form-control">{{ tarea.fecha_entrega}}</label>
             </div>
             <div class="form-group col-md-3">
                 <label>Responsable</label>
@@ -28,7 +28,10 @@
             </div>
             <div class="form-group col-md-3">
                 <label>Estado</label>
-                <label type="text" class="form-control">{{ tarea.estado }}"</label>
+                <label type="text" class="form-control">{{ tarea.estado }}</label>
+            </div>
+            <div>
+                <a class="btn btn-info" href="{% url 'gestion_tareas:dashboard' tarea.responsable %}">Salir</a>
             </div>
         </div>    
     </body>
