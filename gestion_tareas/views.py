@@ -8,7 +8,6 @@ from django.urls import reverse
 from .models import tarea, usuarios_app
 from dateutil.parser import parse
 
-
 # Create your views here.
 
 def ingresar(request):
@@ -25,9 +24,6 @@ def ingresar(request):
                 usuario_registrado = 1
         #Fin validación
 
- #       lista_tareas = tarea.objects.filter(responsable=emailUsuario)
- #       lista_tareas = lista_tareas.exclude(estado='ELIMINADO')
-
         if usuario_registrado == 1:
             #Actualización de estados de tareas
             tareas_actualizar = tarea.objects.filter(responsable=emailUsuario) #extraer las tareas en progreso
@@ -40,8 +36,8 @@ def ingresar(request):
                 if delta < 2:
                     cadaTarea.estado = "FINALIZANDO"
                     cadaTarea.save()
-            tareas_finalizando = tarea.objects.filter(responsable=emailUsuario,estado="FINALIZANDO")
-            #extraer todas las tareas del usuarios finalizando
+            
+            tareas_finalizando = tarea.objects.filter(responsable=emailUsuario,estado="FINALIZANDO") #extraer todas las tareas del usuarios finalizando
             for cadaTarea in tareas_finalizando:
                 fecha_ent = cadaTarea.fecha_entrega
                 fecha_hoy = datetime.today().date()
@@ -49,37 +45,22 @@ def ingresar(request):
                 if delta >= 1:
                     cadaTarea.estado = "PENDIENTE"
             #FIn de actualización de estados
+
             return HttpResponseRedirect(reverse('gestion_tareas:dashboard', kwargs={'responsable' : emailUsuario}))
-#            return HttpResponseRedirect(reverse('gestion_tareas:dashboard'))
-#            return render(request,'gestion_tareas/dashboard.html',{
-#                'lista_tareas':lista_tareas,
-#                'responsable':emailUsuario
-#            })
         else:
             return render(request,'gestion_tareas/ingresar.html',{
                 'mensaje_error':'Los datos ingresados son incorrectos',
             })         
     return render(request,'gestion_tareas/ingresar.html')
 
-#        print(request)
-#        print(request.POST)
-#        print(nombreUsuario)
-#        print(passwordUsuario)
-    #return render(request,'gestion_tareas/ingresar.html')
-
 def dashboard(request,responsable):
-    #filtrar pichangas de nuestro equipo
+    #filtrar tareas del usuario logueado
     lista_tareas = tarea.objects.filter(responsable=responsable)
     lista_tareas = lista_tareas.exclude(estado='ELIMINADO')
     if request.method == 'POST':        
+        # filtro de fechas
         fecha_inicio = request.POST.get("fecha_inicio")
-        print(fecha_inicio)
-        #fecha_inicio = parse(fecha_inicio)
-        print(fecha_inicio)
         fecha_fin = request.POST.get("fecha_fin")
-        print(fecha_inicio)
-        #fecha_fin = parse(fecha_fin)
-        print(fecha_inicio)
         if fecha_inicio != "" and fecha_fin != "":
             lista_tareas = tarea.objects.filter(fecha_cracion__range=[fecha_inicio,fecha_fin],responsable=responsable)
             lista_tareas = lista_tareas.exclude(estado='ELIMINADO')
@@ -88,7 +69,6 @@ def dashboard(request,responsable):
             'responsable':responsable 
         })
     #filtrar finalizado
-#    return render(request,'gestion_tareas/dashboard.html')
     return render(request,'gestion_tareas/dashboard.html',{
         'lista_tareas':lista_tareas,
         'responsable':responsable 
@@ -102,47 +82,48 @@ def detalle_tarea(request,ind):
 
 def editar_tarea(request,ind):
     tarea_editar = tarea.objects.get(id=ind)
+    fecha_defecto = str(tarea_editar.fecha_entrega)
+    fecha_minima = str(datetime.today().date())
+
     if request.method == 'POST':
         descripcion = request.POST.get('descripcion')
-        fecha_creacion = request.POST.get('fecha_creacion')
-        fecha_creacion = parse(fecha_creacion)
         fecha_entrega = request.POST.get('fecha_entrega')
         fecha_entrega = parse(fecha_entrega)
         tarea_editar.descripcion = descripcion
-        tarea_editar.fecha_cracion = fecha_creacion
         tarea_editar.fecha_entrega = fecha_entrega
         tarea_editar.save()
         lista_tareas = tarea.objects.filter(responsable=tarea_editar.responsable)
         lista_tareas = lista_tareas.exclude(estado='ELIMINADO')
-        #return HttpResponseRedirect(reverse('gestion_tareas:dashboard'))
         return render(request,'gestion_tareas/dashboard.html',{
             'lista_tareas':lista_tareas,
             'responsable':tarea_editar.responsable  
     })
     return render(request,'gestion_tareas/editar_tarea.html',{
         'tarea':tarea_editar,
+        'fecha_defecto':fecha_defecto,
+        'fecha_minima':fecha_minima
 #        'lista_tareas':tarea.objects.all() 
     })
 
 def crear_tarea(request,responsable):
+    fecha_minima = str(datetime.today().date())
     if request.method == 'POST':
         descripcion = request.POST.get('descripcion')
         fecha_entrega = request.POST.get('fecha_entrega')
         fecha_entrega = parse(fecha_entrega)
-        #responsable = request.POST.get('responsable')
         tarea(descripcion=descripcion,fecha_entrega=fecha_entrega,responsable=responsable).save()
         lista_tareas = tarea.objects.filter(responsable=responsable)
         lista_tareas = lista_tareas.exclude(estado='ELIMINADO')
-        #return HttpResponseRedirect(reverse('gestion_tareas:dashboard'))
         return render(request,'gestion_tareas/dashboard.html',{
             'lista_tareas':lista_tareas,
-            'responsable':responsable 
+            'responsable':responsable
     })
     return render(request,'gestion_tareas/crear_tarea.html',{
-        'responsable':responsable 
+        'responsable':responsable,
+        'fecha_minima':fecha_minima 
     })      
 
-def eliminar_tarea(request,ind):
+def eliminar_tarea(request,ind): #solo eliminación lógica
     tarea_eliminar = tarea.objects.get(id=ind)
     tarea_eliminar.estado = "ELIMINADO"
     tarea_eliminar.save()

@@ -1,38 +1,77 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
     <head>
         <title>Detalles de Tarea</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{% static 'gestion_tareas/base.css' %}" >
     </head>
     <body>
         <div class="container"></div>
-            <h3>Detalles de Tarea</h3>
-            <div class="form-group col-md-3">
-                <label>Descripción</label>
-                <label type="text" class="form-control">{{ tarea.descripcion }}</label>
-            </div>
-            <div class="form-group col-md-3">
-                <label>Fecha de creación</label>
-                <label class="form-control">{{ tarea.fecha_cracion }}</label>
-            </div>
-            <div class="form-group col-md-3">
-                <label>Fecha de entrega</label>
-                <label type="text" class="form-control">{{ tarea.fecha_entrega}}</label>
-            </div>
-            <div class="form-group col-md-3">
-                <label>Responsable</label>
-                <label type="text" class="form-control">{{ tarea.responsable }}</label>
-            </div>
-            <div class="form-group col-md-3">
-                <label>Estado</label>
-                <label type="text" class="form-control">{{ tarea.estado }}</label>
-            </div>
+            <h3>Detalle de Tarea</h3>
+            <br>
+            <h4>Estado</h4>
+            <br>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label>Descripción</label>
+                        </td>
+                        <td>
+                            <label type="text" class="form-control">{{ tarea.descripcion }}</label>
+                        </td>
+                    </tr>
+                    <tr>    
+                        <td>
+                            <label>Responsable</label>
+                        </td>
+                        <td>
+                            <label type="text" class="form-control">{{ tarea.responsable }}</label>
+                        </td>
+                    </tr>    
+                        <td>
+                            <label>Estado</label>
+                        </td>
+                        <td>
+                            <label type="text" class="form-control">{{ tarea.estado }}</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>        
+            <br>
+            <br>
+            <h4>Periodo</h4>
+            <br>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label>Fecha de creación</label>
+                        </td>
+                        <td>
+                            <label class="form-control">{{ tarea.fecha_cracion }}</label>
+                        </td>
+                    </tr>
+                    <tr>    
+                        <td>
+                            <label>Fecha de entrega</label>
+                        </td>
+                        <td>
+                            <label type="text" class="form-control">{{ tarea.fecha_entrega}}</label>
+                        </td>
+                    </tr>    
+                </tbody>
+            </table>        
+           <br>
+           <br>
             <div>
-                <a class="btn btn-info" href="{% url 'gestion_tareas:dashboard' tarea.responsable %}">Salir</a>
+                <a class="button2" href="{% url 'gestion_tareas:dashboard' tarea.responsable %}">Salir</a>
             </div>
+
+
+
+
         </div>    
     </body>
 </html>
